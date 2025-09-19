@@ -54,5 +54,72 @@ Socket programming finds applications in various domains, including web developm
 5.	RPC mechanisms: which allow processes to execute code on a remote server, often use socket programming for communication.
 
 
+##CLIENT:
+
+```
+import socket
+
+# Create a socket object
+client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+# Connect to the server
+client_socket.connect(('localhost', 8000))
+
+# Print the client's socket name
+print(f"Client connected from: {client_socket.getsockname()}")
+
+# Receive a message from the server
+server_message = client_socket.recv(1024).decode()
+print(f"Received from server: {server_message}")
+
+# Send a message to the server
+client_socket.send("Acknowledgement received from the client.".encode())
+
+# Close the connection
+client_socket.close()
+```
+
+##SERVER:
+
+```
+import socket
+
+# Create a socket object
+server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+# Bind the socket to the host and port
+server_socket.bind(('localhost', 8000))
+
+# Listen for incoming connections (max 1 connection)
+server_socket.listen(1)
+print("Server is waiting for a connection...")
+
+# Accept the connection
+conn, addr = server_socket.accept()
+print(f"Connected by {addr}")
+
+# Send a message to the client
+conn.send("Hello from the server!".encode())
+
+# Receive a message from the client
+data = conn.recv(1024)
+print(f"Received from client: {data.decode()}")
+
+# Close the connection
+conn.close()
+server_socket.close()
+```
+
+##OUTPUT:
+
+###CLIENT :
+<img width="707" height="202" alt="image" src="https://github.com/user-attachments/assets/0f6175d7-615e-46b5-a276-411471a8ae12" />
+
+###SERVER:
+<img width="720" height="225" alt="image" src="https://github.com/user-attachments/assets/3e9cd7e4-50be-4fcc-a0c6-32bacc6d1a45" />
+
+
+
+
 ## Result:
 Thus the study of Socket Programming Completed Successfully
